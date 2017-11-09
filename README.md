@@ -1,7 +1,7 @@
 42 - Http
 ====
 
-HTTP library for the 42 framework
+HTTP library for the _42_ framework
 
 Install
 ---

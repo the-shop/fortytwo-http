@@ -14,6 +14,7 @@ class FileUploadController extends Http
 {
     /**
      * @return array
+     * @todo lose APPLICATION DEPENDENCY
      */
     public function uploadFile()
     {

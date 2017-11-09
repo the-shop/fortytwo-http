@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploadControllerTest extends UnitTest
 {
+    /**
+     * @todo lose APPLICATION DEPENDENCY
+     */
     use ProfileRelated, ProjectRelated, Helpers;
 
     public function setUp()
@@ -49,6 +52,7 @@ class FileUploadControllerTest extends UnitTest
 
     /**
      * @return BrunoInterface
+     * @todo lose APPLICATION DEPENDENCY
      */
     public function testFileUpload()
     {
