@@ -1,0 +1,10 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="Http">
+            <directory>test</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="FILE_TO_UPLOAD_TEST_PATH" value="/test/Controller/test.txt"/>
+    </php>
+</phpunit>
