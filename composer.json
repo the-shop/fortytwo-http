@@ -1,6 +1,6 @@
 {
   "name": "the-shop/fortytwo-http",
-  "description": "HTTP library implementation using the-shop/fortytwo-* packages",
+  "description": "HTTP library for the-shop/fortytwo-* packages",
   "license": "MIT",
   "type": "library",
   "homepage": "https://github.com/the-shop/fortytwo-http",
@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "the-shop/fortytwo-base": "0.1.0",
+    "the-shop/fortytwo-base": "^0.1.1",
     "nikic/fast-route": "1.2",
     "mustache/mustache": "^2.12",
     "symfony/http-foundation": "^3.3"
@@ -28,7 +28,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Framework\\Http\\Test\\": "test/"
+      "Framework\\Http\\Test\\": "test/",
+      "Framework\\Base\\Test\\": "vendor/the-shop/fortytwo-base/test/"
     }
   },
   "scripts": {

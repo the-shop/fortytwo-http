@@ -65,6 +65,9 @@ class Dispatcher implements DispatcherInterface
     public function parseRequest(RequestInterface $request)
     {
         // Fetch method and URI from somewhere
+        /**
+         * @var \Framework\Http\Request\HttpRequestInterface $request
+         */
         $httpMethod = $request->getMethod();
         $uri = $request->getUri();
 

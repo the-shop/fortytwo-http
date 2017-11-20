@@ -2,24 +2,14 @@
 
 namespace Framework\Http\Response;
 
-use Framework\Base\Response\ResponseInterface;
+use Framework\Base\Response\Response as BaseResponse;
 
 /**
  * Class Response
  * @package Framework\Http\Response
  */
-class Response implements ResponseInterface
+class Response extends BaseResponse implements HttpResponseInterface
 {
-    /**
-     * @var mixed
-     */
-    private $body = null;
-
-    /**
-     * @var int
-     */
-    private $code = 200;
-
     /**
      * @var array
      */
@@ -34,49 +24,11 @@ class Response implements ResponseInterface
     }
 
     /**
-     * @param $responseBody
-     * @return $this
-     */
-    public function setBody($responseBody)
-    {
-        $this->body = $responseBody;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @param int $code
-     * @return $this
-     */
-    public function setCode(int $code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @return \Framework\Http\Response\HttpResponseInterface
      */
-    public function addHeaders(array $headers): ResponseInterface
+    public function addHeaders(array $headers): HttpResponseInterface
     {
         foreach ($headers as $name => $value) {
             $this->addHeader($name, $value);
@@ -89,9 +41,9 @@ class Response implements ResponseInterface
      * @param string $headerName
      * @param string $headerValue
      *
-     * @return \Framework\Base\Response\ResponseInterface
+     * @return \Framework\Http\Response\HttpResponseInterface
      */
-    public function addHeader(string $headerName, string $headerValue): ResponseInterface
+    public function addHeader(string $headerName, string $headerValue): HttpResponseInterface
     {
         $this->headers[$headerName] = $headerValue;
 

@@ -17,7 +17,7 @@ class Http extends BaseController
     public function getPost()
     {
         return $this->getRequest()
-            ->getPost();
+                    ->getPost();
     }
 
     /**
@@ -26,7 +26,7 @@ class Http extends BaseController
     public function getQuery()
     {
         return $this->getRequest()
-            ->getQuery();
+                    ->getQuery();
     }
 
     /**
@@ -35,17 +35,17 @@ class Http extends BaseController
     public function getFiles()
     {
         return $this->getRequest()
-            ->getFiles();
+                    ->getFiles();
     }
 
     /**
-     * @return Request
+     * @return \Framework\Http\Request\HttpRequestInterface
      */
     public function getRequest()
     {
         /* @var Request $request */
         $request = $this->getApplication()
-            ->getRequest();
+                        ->getRequest();
 
         return $request;
     }

@@ -2,11 +2,14 @@
 
 namespace Framework\Http\Request;
 
+use Framework\Base\Request\Request as BaseRequest;
+use Framework\Base\Request\RequestInterface;
+
 /**
  * Class Request
  * @package Framework\Http\Request
  */
-class Request implements RequestInterface
+class Request extends BaseRequest implements HttpRequestInterface
 {
     /**
      * @var array
@@ -26,22 +29,17 @@ class Request implements RequestInterface
     /**
      * @var array
      */
-    private $serverInformation = [];
-
-    /**
-     * @var array
-     */
     private $cookies = [];
 
     /**
      * @var string
      */
-    private $requestMethod = 'GET';
+    private $method = 'GET';
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $requestUri = null;
+    private $serverInformation = [];
 
     /**
      * @var null|string
@@ -49,106 +47,31 @@ class Request implements RequestInterface
     private $clientIp = null;
 
     /**
-     * @param array $get
-     * @return $this
+     * @return string
      */
-    public function setQuery(array $get = [])
+    public function getMethod(): string
     {
-        $this->queryParams = $get;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getQuery()
-    {
-        return $this->queryParams;
-    }
-
-    /**
-     * @param array $post
-     * @return $this
-     */
-    public function setPost(array $post = [])
-    {
-        $this->postParams = $post;
-
-        return $this;
-    }
-
-    /**
-     * @param array $cookies
-     *
-     * @return $this
-     */
-    public function setCookies(array $cookies = [])
-    {
-        $this->cookies = $cookies;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getPost()
-    {
-        return $this->postParams;
-    }
-
-    /**
-     * @param array $files
-     * @return $this
-     */
-    public function setFiles(array $files = [])
-    {
-        $this->fileParams = $files;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFiles()
-    {
-        return $this->fileParams;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCookies()
-    {
-        return $this->cookies;
+        return $this->method;
     }
 
     /**
      * @param string $method
-     * @return $this
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
      */
-    public function setMethod(string $method)
+    public function setMethod(string $method): HttpRequestInterface
     {
-        $this->requestMethod = strtoupper($method);
+        $this->method = strtoupper($method);
 
         return $this;
     }
 
     /**
-     * @return string
-     */
-    public function getMethod()
-    {
-        return $this->requestMethod;
-    }
-
-    /**
      * @param string $uri
-     * @return $this
+     *
+     * @return \Framework\Base\Request\RequestInterface
      */
-    public function setUri(string $uri)
+    public function setUri(string $uri): RequestInterface
     {
         // Normalize $uri, prepend with slash if not there
         if (strlen($uri) > 0 && $uri[0] !== '/') {
@@ -160,24 +83,25 @@ class Request implements RequestInterface
             $uri = substr($uri, 0, $pos);
         }
 
-        $this->requestUri = $uri;
+        parent::setUri($uri);
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getUri()
+    public function getServer(): array
     {
-        return $this->requestUri;
+        return $this->serverInformation;
     }
 
     /**
      * @param array $serverInformationMap
-     * @return $this
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
      */
-    public function setServer(array $serverInformationMap = [])
+    public function setServer(array $serverInformationMap = []): HttpRequestInterface
     {
         $this->serverInformation = $serverInformationMap;
 
@@ -192,9 +116,81 @@ class Request implements RequestInterface
     /**
      * @return array
      */
-    public function getServer()
+    public function getQuery(): array
     {
-        return $this->serverInformation;
+        return $this->queryParams;
+    }
+
+    /**
+     * @param array $get
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
+     */
+    public function setQuery(array $get = []): HttpRequestInterface
+    {
+        $this->queryParams = $get;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPost(): array
+    {
+        return $this->postParams;
+    }
+
+    /**
+     * @param array $post
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
+     */
+    public function setPost(array $post = []): HttpRequestInterface
+    {
+        $this->postParams = $post;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCookies(): array
+    {
+        return $this->cookies;
+    }
+
+    /**
+     * @param array $cookies
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
+     */
+    public function setCookies(array $cookies = []): HttpRequestInterface
+    {
+        $this->cookies = $cookies;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFiles(): array
+    {
+        return $this->fileParams;
+    }
+
+    /**
+     * @param array $files
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
+     */
+    public function setFiles(array $files = []): HttpRequestInterface
+    {
+        $this->fileParams = $files;
+
+        return $this;
     }
 
     /**
@@ -212,9 +208,10 @@ class Request implements RequestInterface
 
     /**
      * @param string $ip
-     * @return RequestInterface
+     *
+     * @return \Framework\Http\Request\HttpRequestInterface
      */
-    public function setClientIp(string $ip)
+    public function setClientIp(string $ip): HttpRequestInterface
     {
         $this->clientIp = $ip;
 
@@ -222,9 +219,9 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getClientIp()
+    public function getClientIp(): string
     {
         return $this->clientIp;
     }
