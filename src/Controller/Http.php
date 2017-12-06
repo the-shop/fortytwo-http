@@ -3,6 +3,7 @@
 namespace Framework\Http\Controller;
 
 use Framework\Base\Application\BaseController;
+use Framework\Http\Request\HttpRequestInterface;
 use Framework\Http\Request\Request;
 
 /**
@@ -12,9 +13,21 @@ use Framework\Http\Request\Request;
 class Http extends BaseController
 {
     /**
+     * @return HttpRequestInterface
+     */
+    public function getRequest(): HttpRequestInterface
+    {
+        /* @var Request $request */
+        $request = $this->getApplication()
+                        ->getRequest();
+
+        return $request;
+    }
+
+    /**
      * @return array
      */
-    public function getPost()
+    public function getPost(): array
     {
         return $this->getRequest()
                     ->getPost();
@@ -23,7 +36,7 @@ class Http extends BaseController
     /**
      * @return array
      */
-    public function getQuery()
+    public function getQuery(): array
     {
         return $this->getRequest()
                     ->getQuery();
@@ -32,21 +45,9 @@ class Http extends BaseController
     /**
      * @return array
      */
-    public function getFiles()
+    public function getFiles(): array
     {
         return $this->getRequest()
                     ->getFiles();
-    }
-
-    /**
-     * @return \Framework\Http\Request\HttpRequestInterface
-     */
-    public function getRequest()
-    {
-        /* @var Request $request */
-        $request = $this->getApplication()
-                        ->getRequest();
-
-        return $request;
     }
 }

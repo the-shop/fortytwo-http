@@ -57,7 +57,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param string $method
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setMethod(string $method): HttpRequestInterface
     {
@@ -69,7 +69,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param string $uri
      *
-     * @return \Framework\Base\Request\RequestInterface
+     * @return RequestInterface
      */
     public function setUri(string $uri): RequestInterface
     {
@@ -99,7 +99,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param array $serverInformationMap
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setServer(array $serverInformationMap = []): HttpRequestInterface
     {
@@ -124,7 +124,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param array $get
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setQuery(array $get = []): HttpRequestInterface
     {
@@ -144,7 +144,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param array $post
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setPost(array $post = []): HttpRequestInterface
     {
@@ -164,7 +164,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param array $cookies
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setCookies(array $cookies = []): HttpRequestInterface
     {
@@ -184,7 +184,7 @@ class Request extends BaseRequest implements HttpRequestInterface
     /**
      * @param array $files
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setFiles(array $files = []): HttpRequestInterface
     {
@@ -203,19 +203,8 @@ class Request extends BaseRequest implements HttpRequestInterface
                 return getallheaders();
             }
         }
+
         return [];
-    }
-
-    /**
-     * @param string $ip
-     *
-     * @return \Framework\Http\Request\HttpRequestInterface
-     */
-    public function setClientIp(string $ip): HttpRequestInterface
-    {
-        $this->clientIp = $ip;
-
-        return $this;
     }
 
     /**
@@ -224,5 +213,17 @@ class Request extends BaseRequest implements HttpRequestInterface
     public function getClientIp(): string
     {
         return $this->clientIp;
+    }
+
+    /**
+     * @param string $ip
+     *
+     * @return HttpRequestInterface
+     */
+    public function setClientIp(string $ip): HttpRequestInterface
+    {
+        $this->clientIp = $ip;
+
+        return $this;
     }
 }

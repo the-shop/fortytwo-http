@@ -18,7 +18,7 @@ interface HttpRequestInterface extends RequestInterface
     /**
      * @param array $serverInformationMap
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setServer(array $serverInformationMap = []): HttpRequestInterface;
 
@@ -30,7 +30,7 @@ interface HttpRequestInterface extends RequestInterface
     /**
      * @param string $method
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setMethod(string $method): HttpRequestInterface;
 
@@ -59,7 +59,7 @@ interface HttpRequestInterface extends RequestInterface
     /**
      * @param array $query
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setQuery(array $query): HttpRequestInterface;
 
@@ -71,7 +71,7 @@ interface HttpRequestInterface extends RequestInterface
     /**
      * @param array $post
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setPost(array $post): HttpRequestInterface;
 
@@ -83,7 +83,7 @@ interface HttpRequestInterface extends RequestInterface
     /**
      * @param array $cookies
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setCookies(array $cookies): HttpRequestInterface;
 
@@ -95,7 +95,7 @@ interface HttpRequestInterface extends RequestInterface
     /**
      * @param array $files
      *
-     * @return \Framework\Http\Request\HttpRequestInterface
+     * @return HttpRequestInterface
      */
     public function setFiles(array $files): HttpRequestInterface;
 

@@ -13,9 +13,10 @@ class Json extends Render
 {
     /**
      * @param ResponseInterface $response
-     * @return mixed
+     *
+     * @return string
      */
-    public function render(ResponseInterface $response)
+    public function render(ResponseInterface $response): string
     {
         $responseBody = $response->getBody();
 

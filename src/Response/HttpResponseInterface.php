@@ -13,7 +13,7 @@ interface HttpResponseInterface extends ResponseInterface
     /**
      * @param array $headers
      *
-     * @return \Framework\Http\Response\HttpResponseInterface
+     * @return HttpResponseInterface
      */
     public function addHeaders(array $headers): HttpResponseInterface;
 
@@ -21,7 +21,7 @@ interface HttpResponseInterface extends ResponseInterface
      * @param string $headerName
      * @param string $headerValue
      *
-     * @return \Framework\Http\Response\HttpResponseInterface
+     * @return HttpResponseInterface
      */
     public function addHeader(string $headerName, string $headerValue): HttpResponseInterface;
 
