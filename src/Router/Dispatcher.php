@@ -8,6 +8,7 @@ use Framework\Base\Application\Exception\MethodNotAllowedException;
 use Framework\Base\Application\Exception\NotFoundException;
 use Framework\Base\Request\RequestInterface;
 use Framework\Base\Router\DispatcherInterface;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class Dispatcher
@@ -39,11 +40,12 @@ class Dispatcher implements DispatcherInterface
 
     /**
      * @param array $routes
-     * @return $this
+     *
+     * @return DispatcherInterface
      */
-    public function addRoutes(array $routes = [])
+    public function addRoutes(array $routes = []): DispatcherInterface
     {
-        $this->routes = array_merge($this->routes, $routes);
+        $this->routes = ArrayUtils::merge($this->routes, $routes);
 
         return $this;
     }
@@ -51,15 +53,17 @@ class Dispatcher implements DispatcherInterface
     /**
      * @return array
      */
-    public function getRoutes()
+    public function getRoutes(): array
     {
         return $this->routes;
     }
 
     /**
      * @param RequestInterface $request
+     *
      * @return array
-     * @throws \Framework\Base\Application\Exception\MethodNotAllowedException
+     * @throws MethodNotAllowedException
+     * @throws NotFoundException
      * @throws \Exception
      */
     public function parseRequest(RequestInterface $request)
@@ -73,8 +77,7 @@ class Dispatcher implements DispatcherInterface
 
         $uri = rawurldecode($uri);
 
-        $routeInfo = $this->dispatcher
-            ->dispatch($httpMethod, $uri);
+        $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);
 
         switch ($routeInfo[0]) {
             case \FastRoute\Dispatcher::NOT_FOUND:
@@ -105,15 +108,18 @@ class Dispatcher implements DispatcherInterface
     {
         $routes = $this->routes;
         $routePrefix = $this->getApplication()
-            ->getConfiguration()
-            ->getPathValue('routePrefix');
+                            ->getConfiguration()
+                            ->getPathValue('routePrefix');
         $callback = function (RouteCollector $routeCollector) use ($routes, $routePrefix) {
-            $routeCollector->addGroup($routePrefix, function (RouteCollector $r) use ($routes) {
-                foreach ($routes as $route) {
-                    list ($method, $path, $handler) = $route;
-                    $r->addRoute(strtoupper($method), $path, $handler);
+            $routeCollector->addGroup(
+                $routePrefix,
+                function (RouteCollector $r) use ($routes) {
+                    foreach ($routes as $route) {
+                        list ($method, $path, $handler) = $route;
+                        $r->addRoute(strtoupper($method), $path, $handler);
+                    }
                 }
-            });
+            );
         };
 
         $this->dispatcher = \FastRoute\simpleDispatcher($callback);
@@ -124,7 +130,7 @@ class Dispatcher implements DispatcherInterface
     /**
      * @return null|string
      */
-    public function getHandler()
+    public function getHandler(): string
     {
         return $this->handler;
     }
@@ -132,7 +138,7 @@ class Dispatcher implements DispatcherInterface
     /**
      * @return array
      */
-    public function getRouteParameters()
+    public function getRouteParameters(): array
     {
         return $this->routeParameters;
     }

@@ -16,6 +16,14 @@ class Response extends BaseResponse implements HttpResponseInterface
     private $headers = [];
 
     /**
+     * Response constructor.
+     */
+    public function __construct()
+    {
+        $this->setCode(200);
+    }
+
+    /**
      * @return array
      */
     public function getHeaders(): array
@@ -26,7 +34,7 @@ class Response extends BaseResponse implements HttpResponseInterface
     /**
      * @param array $headers
      *
-     * @return \Framework\Http\Response\HttpResponseInterface
+     * @return HttpResponseInterface
      */
     public function addHeaders(array $headers): HttpResponseInterface
     {
@@ -41,7 +49,7 @@ class Response extends BaseResponse implements HttpResponseInterface
      * @param string $headerName
      * @param string $headerValue
      *
-     * @return \Framework\Http\Response\HttpResponseInterface
+     * @return HttpResponseInterface
      */
     public function addHeader(string $headerName, string $headerValue): HttpResponseInterface
     {

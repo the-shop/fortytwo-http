@@ -3,6 +3,7 @@
 namespace Framework\Http\Render;
 
 use Framework\Base\Render\Render;
+use Framework\Base\Render\RenderInterface;
 use Framework\Base\Response\ResponseInterface;
 use Mustache_Engine;
 
@@ -17,7 +18,12 @@ class Mustache extends Render
      */
     private $templateName = '';
 
-    public function render(ResponseInterface $response)
+    /**
+     * @param ResponseInterface $response
+     *
+     * @return string
+     */
+    public function render(ResponseInterface $response): string
     {
         $rootPath = str_replace('public', '', getcwd());
         $mustacheEngine = new Mustache_Engine(
@@ -45,18 +51,22 @@ class Mustache extends Render
     }
 
     /**
-     * @param string $templateName
+     * @return string
      */
-    public function setTemplateName(string $templateName)
+    public function getTemplateName(): string
     {
-        $this->templateName = $templateName;
+        return $this->templateName;
     }
 
     /**
-     * @return null
+     * @param string $templateName
+     *
+     * @return RenderInterface
      */
-    public function getTemplateName()
+    public function setTemplateName(string $templateName): RenderInterface
     {
-        return $this->templateName;
+        $this->templateName = $templateName;
+
+        return $this;
     }
 }
