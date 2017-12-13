@@ -73,9 +73,7 @@ class Dispatcher implements DispatcherInterface
          * @var \Framework\Http\Request\HttpRequestInterface $request
          */
         $httpMethod = $request->getMethod();
-        $uri = $request->getUri();
-
-        $uri = rawurldecode($uri);
+        $uri = strtolower(rawurldecode($request->getUri()));
 
         $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);
 
@@ -87,6 +85,7 @@ class Dispatcher implements DispatcherInterface
                 $allowedMethods = $routeInfo[1];
                 $exception = new MethodNotAllowedException('Request method not allowed');
                 $exception->setAllowedMethods($allowedMethods);
+
                 throw $exception;
                 break;
             case \FastRoute\Dispatcher::FOUND:
@@ -116,7 +115,7 @@ class Dispatcher implements DispatcherInterface
                 function (RouteCollector $r) use ($routes) {
                     foreach ($routes as $route) {
                         list ($method, $path, $handler) = $route;
-                        $r->addRoute(strtoupper($method), $path, $handler);
+                        $r->addRoute(strtoupper($method), strtolower($path), $handler);
                     }
                 }
             );
