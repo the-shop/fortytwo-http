@@ -29,7 +29,7 @@ class Json extends Render
             header($key . ': ' . $value);
         }
 
-        $rendered = json_encode($responseBody);
+        $rendered = json_encode($responseBody, JSON_PRETTY_PRINT);
 
         echo $rendered;
 
